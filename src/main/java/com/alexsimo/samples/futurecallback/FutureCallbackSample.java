@@ -12,12 +12,9 @@ public class FutureCallbackSample {
         ExecutorService executorService = Executors.newCachedThreadPool();
         ListeningExecutorService executor = MoreExecutors.listeningDecorator(executorService);
 
-        ListenableFuture<String> future = executor.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(1000);
-                return "Task completed";
-            }
+        ListenableFuture<String> future = executor.submit(() -> {
+            Thread.sleep(1000);
+            return "Task completed";
         });
 
         Futures.addCallback(future, new FutureCallback<String>() {
