@@ -8,10 +8,13 @@ import com.google.common.base.CharMatcher;
 import java.util.List;
 
 public class CharMatchers {
+
+    private static final int ONE = 0;
+
     public static void main(String[] args) {
         List<Person> persons = PersonRepository.instance().getByLimit(1);
 
-        Person person = persons.get(0);
+        Person person = persons.get(ONE);
         StringBuffer sb = new StringBuffer();
         sb.append(person.getSuffix());
         sb.append(" --- ");

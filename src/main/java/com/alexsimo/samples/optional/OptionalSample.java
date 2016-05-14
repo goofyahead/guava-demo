@@ -10,11 +10,9 @@ public class OptionalSample {
 
 
     public static void main(String[] args) {
-
         System.out.println(String.format("Name exists: %s", name.isPresent()));
         System.out.println(String.format("Age or default: %s", age.or(0)));
         System.out.println(String.format("Car: %s", car.toString()));
-
     }
 
 }

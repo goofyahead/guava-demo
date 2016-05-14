@@ -14,20 +14,12 @@ public class ListenableCallbackSample {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         ListeningExecutorService executor = MoreExecutors.listeningDecorator(executorService);
 
-        ListenableFuture<String> future = executor.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(1000);
-                return "Task completed";
-            }
+        ListenableFuture<String> future = executor.submit(() -> {
+            Thread.sleep(1000);
+            return "Task completed";
         });
 
-        future.addListener(new Runnable() {
-            @Override
-            public void run() {
-                runOnCompletion();
-            }
-        }, executor);
+        future.addListener(() -> runOnCompletion(), executor);
 
     }
 

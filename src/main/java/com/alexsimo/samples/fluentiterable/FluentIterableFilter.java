@@ -3,28 +3,25 @@ package com.alexsimo.samples.fluentiterable;
 import com.alexsimo.domain.entity.Person;
 import com.alexsimo.domain.repository.PersonRepository;
 import com.alexsimo.util.Printer;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
+import com.google.common.collect.*;
 
 import java.util.Collections;
 import java.util.List;
 
-public class FluentIterableFilter {
+import static com.google.common.collect.FluentIterable.*;
 
-    private static Predicate<Person> startsWithA = new Predicate<Person>() {
-        @Override
-        public boolean apply(Person person) {
-            return person.getName().startsWith("A");
-        }
-    };
+public class FluentIterableFilter {
 
     public static void main(String[] args) {
 
+        Predicate<Person> startsWithA = person -> person.getName().startsWith("A");
+
         List<Person> persons = PersonRepository.instance().getByLimit(50);
 
-        Iterable<Person> filtered = FluentIterable.from(persons)
+        Iterable<Person> filtered = from(persons)
                 .filter(startsWithA);
 
         Printer.print(Lists.newArrayList(filtered));
